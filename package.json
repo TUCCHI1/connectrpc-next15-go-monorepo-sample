@@ -1,0 +1,6 @@
+{
+	"name": "connectrpc-next15-go-monorepo-sample",
+	"version": "1.0.0",
+	"private": true,
+	"workspaces": ["frontend"]
+}
