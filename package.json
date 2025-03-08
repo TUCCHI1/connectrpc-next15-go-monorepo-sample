@@ -1,21 +1,19 @@
 {
-  "name": "connectrpc-next15-go-monorepo-sample",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "private": true,
-  "workspaces": [
-    "frontend"
-  ],
-  "packageManager": "pnpm@10.6.1",
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "turbo": "^2.4.4"
-  }
+	"name": "connectrpc-next15-go-monorepo-sample",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"generate:proto": "buf generate --template buf.gen.yaml"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"private": true,
+	"workspaces": ["frontend"],
+	"packageManager": "pnpm@10.6.1",
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"turbo": "^2.4.4"
+	}
 }
