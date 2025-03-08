@@ -11,7 +11,7 @@
 	"author": "",
 	"license": "ISC",
 	"private": true,
-	"workspaces": ["frontend"],
+	"workspaces": ["packages/frontend"],
 	"packageManager": "pnpm@10.6.1",
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",

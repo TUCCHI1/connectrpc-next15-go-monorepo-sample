@@ -4,25 +4,25 @@ managed:
 plugins:
   # Goコード生成
   - remote: buf.build/protocolbuffers/go
-    out: backend/gen
+    out: packages/backend/gen
     opt:
       - paths=source_relative
 
   # Connect-Goコード生成
   - remote: buf.build/connectrpc/go
-    out: backend/gen
+    out: packages/backend/gen
     opt:
       - paths=source_relative
       - M=proto/product/v1/product.proto=github.com/TUCCHI1/connectrpc-next15-go-monorepo-sample/backend/gen/proto/product/v1
 
   # TypeScript用コード生成
   - remote: buf.build/bufbuild/es
-    out: frontend/gen
+    out: packages/frontend/gen
     opt:
       - target=ts
 
   # ConnectRPC-Web用コード生成
   - remote: buf.build/connectrpc/es
-    out: frontend/gen
+    out: packages/frontend/gen
     opt:
       - target=ts
