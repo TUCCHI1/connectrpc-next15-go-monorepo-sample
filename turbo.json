@@ -6,6 +6,10 @@
         "dependsOn": ["^build"],
         "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
       },
+      "go:build": {
+        "inputs": ["backend/**/*.go"],
+        "outputs": ["backend/bin/**"]
+      },
       "lint": {},
       "dev": {
         "cache": false,
