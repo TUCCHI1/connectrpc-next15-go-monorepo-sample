@@ -17,12 +17,12 @@ plugins:
 
   # TypeScript用コード生成
   - remote: buf.build/bufbuild/es
-    out: frontend/src/gen
+    out: frontend/gen
     opt:
       - target=ts
 
   # ConnectRPC-Web用コード生成
   - remote: buf.build/connectrpc/es
-    out: frontend/src/gen
+    out: frontend/gen
     opt:
       - target=ts
