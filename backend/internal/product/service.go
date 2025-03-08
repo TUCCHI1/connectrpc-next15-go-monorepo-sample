@@ -3,8 +3,8 @@ package product
 import (
 	"context"
 
+	"connectrpc.com/connect"
 	productv1 "github.com/TUCCHI1/connectrpc-next15-go-monorepo-sample/backend/gen/proto/product/v1"
-	"github.com/bufbuild/connect-go"
 )
 
 type Service struct{}
@@ -57,7 +57,7 @@ func (s *Service) ListProducts(
     
     response := &productv1.ListProductsResponse{
         Products:      products,
-        NextPageToken: "", // 簡略化のため空にしています
+        NextPageToken: "",
     }
     
     return connect.NewResponse(response), nil
