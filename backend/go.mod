@@ -1,4 +1,4 @@
-module github.com/yourusername/my-app/backend
+module github.com/TUCCHI1/connectrpc-next15-go-monorepo-sample/backend
 
 go 1.24.0
 
