@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package proto.product.v1;
+package packages.proto.product.v1;
 
-option go_package = "github.com/TUCCHI1/connectrpc-next15-go-monorepo-sample/backend/gen/proto/product/v1;productv1";
+option go_package = "github.com/TUCCHI1/connectrpc-next15-go-monorepo-sample/packages/backend/gen/proto/product/v1;productv1";
 
 // 基本的なプロダクトモデル
 message Product {
