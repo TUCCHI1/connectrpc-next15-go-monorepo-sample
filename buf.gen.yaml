@@ -4,7 +4,7 @@ managed:
 plugins:
   # Goコード生成
   - remote: buf.build/protocolbuffers/go
-    out: packages/backend/gen
+    out: /packages/backend/gen
     opt:
       - paths=source_relative
 
@@ -16,12 +16,12 @@ plugins:
 
   # TypeScript用コード生成
   - remote: buf.build/bufbuild/es
-    out: packages/frontend/gen
+    out: /packages/frontend/gen
     opt:
       - target=ts
 
   # ConnectRPC-Web用コード生成
   - remote: buf.build/connectrpc/es
-    out: packages/frontend/gen
+    out: /packages/frontend/gen
     opt:
       - target=ts
