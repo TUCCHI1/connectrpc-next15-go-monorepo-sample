@@ -1,0 +1,26 @@
+# https://buf.build/docs/configuration/v2/buf-gen-yaml
+version: v2
+plugins:
+  # Goコード生成
+  - plugin: buf.build/protocolbuffers/go
+    out: backend/gen
+    opt:
+      - paths=source_relative
+
+  # Connect-Goコード生成
+  - plugin: buf.build/connectrpc/go
+    out: backend/gen
+    opt:
+      - paths=source_relative
+
+  # TypeScript用コード生成
+  - plugin: buf.build/bufbuild/es
+    out: frontend/src/gen
+    opt:
+      - target=ts
+
+  # ConnectRPC-Web用コード生成
+  - plugin: buf.build/connectrpc/es
+    out: frontend/src/gen
+    opt:
+      - target=ts
