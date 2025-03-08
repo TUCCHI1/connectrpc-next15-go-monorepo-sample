@@ -3,29 +3,25 @@ managed:
   enabled: true
 plugins:
   # Goコード生成
-  - name: go
+  - remote: buf.build/protocolbuffers/go
     out: backend/gen
-    path: buf.build/protocolbuffers/plugins/go
     opt:
       - paths=source_relative
 
   # Connect-Goコード生成
-  - name: connect-go
+  - remote: buf.build/connectrpc/go
     out: backend/gen
-    path: buf.build/connectrpc/plugins/go
     opt:
       - paths=source_relative
 
   # TypeScript用コード生成
-  - name: es
+  - remote: buf.build/bufbuild/es
     out: frontend/src/gen
-    path: buf.build/bufbuild/plugins/es
     opt:
       - target=ts
 
   # ConnectRPC-Web用コード生成
-  - name: connect-es
+  - remote: buf.build/connectrpc/es
     out: frontend/src/gen
-    path: buf.build/connectrpc/plugins/es
     opt:
       - target=ts
