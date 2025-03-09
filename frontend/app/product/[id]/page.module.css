@@ -1,0 +1,84 @@
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	min-height: 100vh;
+	padding: 2rem;
+}
+
+.productDetail {
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+	padding: 2rem;
+	width: 100%;
+	max-width: 800px;
+}
+
+.description {
+	margin: 1.5rem 0;
+	line-height: 1.6;
+	color: #444;
+}
+
+.price {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #0070f3;
+	margin: 1rem 0;
+}
+
+.actions {
+	display: flex;
+	gap: 1rem;
+	margin-top: 2rem;
+}
+
+.addToCartButton,
+.favoriteButton {
+	padding: 0.8rem 1.5rem;
+	border-radius: 8px;
+	border: none;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.addToCartButton {
+	background-color: #0070f3;
+	color: white;
+	flex: 2;
+}
+
+.addToCartButton:hover {
+	background-color: #0051a8;
+}
+
+.favoriteButton {
+	background-color: #f3f3f3;
+	color: #333;
+	flex: 1;
+}
+
+.favoriteButton:hover {
+	background-color: #e0e0e0;
+}
+
+@media (prefers-color-scheme: dark) {
+	.productDetail {
+		background: #121212;
+	}
+
+	.description {
+		color: #ccc;
+	}
+
+	.favoriteButton {
+		background-color: #333;
+		color: #eee;
+	}
+
+	.favoriteButton:hover {
+		background-color: #444;
+	}
+}

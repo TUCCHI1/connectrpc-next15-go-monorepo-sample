@@ -1,30 +1,50 @@
-import { unstable_noStore } from "next/cache";
-// モックデータを使用して在庫情報を表示
+'use client';
+
+import { useState, useEffect } from 'react';
+import styles from './StockStatus.module.css';
+import { browserProductClient } from '@/lib/rpc/browser-client';
 
 interface StockStatusProps {
-    id: string;
+    productId: string;
 }
 
-export default function StockStatus({ id }: StockStatusProps) {
-    // 動的コンテンツであることを明示
-    unstable_noStore();
+export default function StockStatus({ productId }: StockStatusProps) {
+    const [isInStock, setIsInStock] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // 本来はAPIから取得するが、今回はモックデータを使用
-    // 実際にはListProductsなどを使って取得するか、
-    // プロトファイルに在庫取得用のAPIを追加する必要がある
-    const stockStatus = {
-        inStock: id === "product-1", // product-1のみ在庫あり
-        quantity: 5
-    };
+    useEffect(() => {
+        const checkStock = async () => {
+            try {
+                setIsLoading(true);
+
+                // Real RPC call to the backend through the API route
+                const response = await browserProductClient.getProduct({
+                    id: productId,
+                });
+
+                // For demo purposes, determine stock based on product ID
+                // In a real app, this would come from the product response
+                const stockStatus = productId.endsWith('1') || productId.endsWith('3') || productId.endsWith('5');
+
+                setIsInStock(stockStatus);
+            } catch (error) {
+                console.error('Failed to check stock status:', error);
+                setIsInStock(false);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        checkStock();
+    }, [productId]);
+
+    if (isLoading) {
+        return <div className={styles.loading}>在庫状況を確認中...</div>;
+    }
 
     return (
-        <div className="stock-status">
-            <h2>在庫状況</h2>
-            {stockStatus.inStock ? (
-                <p className="in-stock">在庫あり ({stockStatus.quantity}個)</p>
-            ) : (
-                <p className="out-of-stock">在庫切れ</p>
-            )}
+        <div className={isInStock ? styles.inStock : styles.outOfStock}>
+            {isInStock ? '在庫あり - すぐに発送できます' : '在庫切れ - 入荷をお待ちください'}
         </div>
     );
 }

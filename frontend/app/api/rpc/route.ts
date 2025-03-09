@@ -1,28 +1,44 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { productClient } from "@/lib/rpc/client";
+import { NextResponse } from "next/server";
 
+// Proxy for Connect RPC requests from the browser to the Go backend server
 export async function POST(request: NextRequest) {
+    const contentType = request.headers.get("Content-Type") || "";
+    const connectProtocol = request.headers.get("Connect-Protocol-Version");
+    const url = new URL(request.url);
+    const path = url.pathname.replace("/api", "");
+
+    // Create the target URL by replacing the API path prefix with the backend URL
+    const targetUrl = `${process.env.RPC_SERVER_URL || "http://localhost:8080"}${path}`;
+
     try {
-        const body = await request.json();
-        const { service, method, data } = body;
+        // Forward the request to the backend
+        const response = await fetch(targetUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": contentType,
+                ...(connectProtocol && { "Connect-Protocol-Version": connectProtocol }),
+            },
+            body: await request.text(),
+        });
 
-        // サービスとメソッドに基づいて適切な RPC 呼び出しを行う
-        if (service === "ProductService") {
-            if (method === "GetProduct") {
-                const result = await productClient.getProduct(data);
-                return NextResponse.json(result);
-            }
+        // Create a NextResponse with the same status and headers
+        const responseData = await response.text();
 
-            if (method === "ListProducts") {
-                const result = await productClient.listProducts(data);
-                return NextResponse.json(result);
-            }
-        }
+        const headers = new Headers();
+        response.headers.forEach((value, key) => {
+            headers.set(key, value);
+        });
 
-        return NextResponse.json({ error: "Invalid service or method" }, { status: 400 });
+        return new NextResponse(responseData, {
+            status: response.status,
+            headers,
+        });
     } catch (error) {
-        console.error("RPC API error:", error);
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+        console.error("Error proxying request to backend:", error);
+        return NextResponse.json(
+            { error: "Failed to communicate with backend service" },
+            { status: 500 }
+        );
     }
 }

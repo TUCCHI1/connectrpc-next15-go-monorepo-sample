@@ -1,14 +1,11 @@
-import {
-    GetProductRequest,
-    ListProductsRequest
-} from "@/gen/proto/product/v1/product_pb";
+'use client';
 
-// Server-side client for use with server components
-export const productClient = {
+import type { ProductService } from "@/gen/proto/product/v1/product_pb";
+
+// Create a vanilla JS object with methods that call the RPC endpoints
+export const browserProductClient = {
     async getProduct(request: { id: string }) {
-        const baseUrl = process.env.RPC_SERVER_URL || "http://localhost:8080";
-
-        const resp = await fetch(`${baseUrl}/proto.product.v1.ProductService/GetProduct`, {
+        const resp = await fetch("/api/proto.product.v1.ProductService/GetProduct", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -26,9 +23,7 @@ export const productClient = {
     },
 
     async listProducts(request: { pageSize?: number, pageToken?: string }) {
-        const baseUrl = process.env.RPC_SERVER_URL || "http://localhost:8080";
-
-        const resp = await fetch(`${baseUrl}/proto.product.v1.ProductService/ListProducts`, {
+        const resp = await fetch("/api/proto.product.v1.ProductService/ListProducts", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
